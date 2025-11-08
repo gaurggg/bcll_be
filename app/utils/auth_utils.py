@@ -1,24 +1,51 @@
 from datetime import datetime, timedelta
 from typing import Optional, Dict
 from jose import JWTError, jwt
-from passlib.context import CryptContext
+import bcrypt
 from fastapi import HTTPException, status, Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from app.config import settings
 
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 security = HTTPBearer()
 
 
 def hash_password(password: str) -> str:
-    """Hash a password"""
-    return pwd_context.hash(password)
+    """
+    Hash a password using bcrypt
+    bcrypt has a 72 byte limit, so we truncate the password if necessary
+    """
+    # Truncate password to 72 bytes to comply with bcrypt limitation
+    password_bytes = password.encode('utf-8')[:72]
+
+    # Generate salt and hash the password
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(password_bytes, salt)
+
+    # Return as string (decode from bytes)
+    return hashed.decode('utf-8')
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    """Verify a password against a hash"""
-    return pwd_context.verify(plain_password, hashed_password)
+    """
+    Verify a password against a bcrypt hash
+    bcrypt has a 72 byte limit, so we truncate the password if necessary
+    """
+    try:
+        # Truncate password to 72 bytes to comply with bcrypt limitation
+        password_bytes = plain_password.encode('utf-8')[:72]
+
+        # Convert hash string to bytes if needed
+        if isinstance(hashed_password, str):
+            hashed_bytes = hashed_password.encode('utf-8')
+        else:
+            hashed_bytes = hashed_password
+
+        # Verify the password
+        return bcrypt.checkpw(password_bytes, hashed_bytes)
+    except Exception as e:
+        print(f"Error verifying password: {e}")
+        return False
 
 
 def create_access_token(data: Dict, role: str) -> str:

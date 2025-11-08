@@ -123,14 +123,15 @@ class GoogleMapsClient:
             print(f"Error geocoding address: {e}")
             return None
     
-    def reverse_geocode(self, lat: float, lng: float) -> Optional[str]:
+    def reverse_geocode(self, lat: float, lng: float) -> Optional[List[Dict]]:
         """
         Reverse geocode lat/lng to address
+        Returns full result with address_components for detailed parsing
         """
         try:
             result = self.client.reverse_geocode((lat, lng))
             if result:
-                return result[0]["formatted_address"]
+                return result  # Return full result array
             return None
         except Exception as e:
             print(f"Error reverse geocoding: {e}")

@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+/* Design System v1.0 Integration for Tailwind v4 */
+
+@theme {
+  /* 2.1 Primary Palette */
+  --color-primary-blue: #1A4D8F;
+  --color-highlight-mint: #53C2A5;
+  --color-warm-neutral-sand: #F5EEE3;
+  --color-graphite-gray: #2B2B2B;
+  --color-cool-slate: #6B7A8F;
+
+  /* 2.2 Status/Feedback Colors */
+  --color-status-success: #4CAF50;
+  --color-status-warning: #FFC447;
+  --color-status-error: #E05A5A;
+
+  /* 3. TYPOGRAPHY SYSTEM */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Manrope', system-ui, sans-serif;
+  --font-mono: 'Space Grotesk', monospace;
+
+  /* 4. SPACING & GRID */
+  --spacing-xs: 4px;
+  --spacing-s: 8px;
+  --spacing-m: 12px;
+  --spacing-l: 16px;
+  --spacing-xl: 24px;
+  --spacing-xxl: 32px;
+
+  /* 5. COMPONENT GUIDELINES */
+  --rounded-lg: 8px;
+  --shadow: 0px 2px 6px rgba(0,0,0,0.05);
+
+  /* Custom Font Sizes */
+  --font-size-h1: 36px;
+  --line-height-h1: 1.15;
+  --font-size-h2: 28px;
+  --line-height-h2: 1.15;
+  --font-size-h3: 22px;
+  --line-height-h3: 1.15;
+  --font-size-body-lg: 18px;
+  --line-height-body-lg: 1.4;
+  --font-size-body: 16px;
+  --line-height-body: 1.4;
+  --font-size-body-sm: 14px;
+  --line-height-body-sm: 1.4;
+  --font-size-label: 14px;
+  --line-height-label: 1.25;
+}
+
+@layer utilities {
+  .text-h1 {
+    font-size: var(--font-size-h1);
+    line-height: var(--line-height-h1);
+    font-weight: 600;
+  }
+  .text-h2 {
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    font-weight: 600;
+  }
+  .text-h3 {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    font-weight: 500;
+  }
+  .text-body-lg {
+    font-size: var(--font-size-body-lg);
+    line-height: var(--line-height-body-lg);
+  }
+  .text-body {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+  }
+  .text-body-sm {
+    font-size: var(--font-size-body-sm);
+    line-height: var(--line-height-body-sm);
+  }
+  .text-label {
+    font-size: var(--font-size-label);
+    line-height: var(--line-height-label);
+  }
+}
+
+body {
+  background-color: var(--color-warm-neutral-sand);
+  color: var(--color-graphite-gray);
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+/* Google Maps Autocomplete Styling - Aligned with Design System */
+.pac-container {
+  background-color: #fff;
+  z-index: 9999 !important;
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.05);
+  border: 1px solid var(--color-cool-slate);
+  margin-top: 4px;
+  font-family: var(--font-sans);
+}
+
+.pac-item {
+  padding: 12px 16px;
+  cursor: pointer;
+  border-top: 1px solid var(--color-warm-neutral-sand);
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--color-graphite-gray);
+}
+
+.pac-item:first-child {
+  border-top: none;
+}
+
+.pac-item:hover {
+  background-color: color-mix(in srgb, var(--color-primary-blue) 12%, transparent);
+}
+
+.pac-item-selected {
+  background-color: color-mix(in srgb, var(--color-primary-blue) 24%, transparent);
+}
+
+.pac-icon {
+  margin-right: 8px;
+}
+
+.pac-item-query {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-primary-blue);
+}
+
+.pac-matched {
+  font-weight: 600;
+}
+
+.pac-logo:after {
+  padding: 8px;
+  height: 16px;
+}
